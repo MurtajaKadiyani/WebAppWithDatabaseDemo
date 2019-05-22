@@ -1,4 +1,3 @@
-﻿
 using System;
 using System.Drawing.Imaging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,7 +7,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Remote;
-using OpenQA.Selenium.PhantomJS;
+
 
 namespace SeleniumUiTests
 {
@@ -35,9 +34,9 @@ namespace SeleniumUiTests
             // Arrange
             _browserDriver = new ChromeDriver();
             _browserDriver.Manage().Window.Maximize();
-            _browserDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(20));
+            _browserDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             _browserDriver.Navigate().GoToUrl(_websiteURL + "Employees/Create");
-            _browserDriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(20));
+            _browserDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
 
             _browserDriver.FindElementById("Fullname").Clear();
             _browserDriver.FindElementById("Fullname").SendKeys(fullname);
@@ -56,7 +55,7 @@ namespace SeleniumUiTests
 
             var screenshot = _browserDriver.GetScreenshot();
             var fileName = $"{fullname}.jpg";
-            screenshot.SaveAsFile(fileName, ImageFormat.Jpeg);
+            screenshot.SaveAsFile(fileName, OpenQA.Selenium.ScreenshotImageFormat.Jpeg);
             TestContext.AddResultFile(fileName);
             
             // Act
